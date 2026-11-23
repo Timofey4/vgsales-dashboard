@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Продажи видеоигр по платформам</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>🎮 Продажи видеоигр по платформам</h1>
+    <p>Интерактивный дашборд на основе датасета vgsales ({{ year_min }}–{{ year_max }})</p>
+</header>
+
+<main>
+    <form method="get" class="filters">
+        <div class="field">
+            <label for="year_from">Год от</label>
+            <input type="number" id="year_from" name="year_from"
+                   min="{{ year_min }}" max="{{ year_max }}" value="{{ year_from }}">
+        </div>
+        <div class="field">
+            <label for="year_to">Год до</label>
+            <input type="number" id="year_to" name="year_to"
+                   min="{{ year_min }}" max="{{ year_max }}" value="{{ year_to }}">
+        </div>
+        <div class="field">
+            <label for="metric">Метрика</label>
+            <select id="metric" name="metric">
+                {% for key, label in metrics.items() %}
+                <option value="{{ key }}" {% if key == metric %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label for="top_n">Топ-N: <output id="top_n_out">{{ top_n }}</output></label>
+            <input type="range" id="top_n" name="top_n"
+                   min="{{ top_n_min }}" max="{{ top_n_max }}" value="{{ top_n }}"
+                   oninput="document.getElementById('top_n_out').value = this.value">
+        </div>
+        <button type="submit">Построить</button>
+    </form>
+
+    {% if empty %}
+        <div class="notice">Нет данных для выбранного диапазона.</div>
+    {% else %}
+        <section class="stats">
+            <div class="card"><span>{{ "{:,}".format(games).replace(",", " ") }}</span>игр в выборке</div>
+            <div class="card"><span>{{ platforms }}</span>платформ</div>
+            <div class="card"><span>{{ total_sales }}</span>млн копий всего</div>
+        </section>
+
+        <section class="chart">
+            <img src="data:image/png;base64,{{ chart }}" alt="График продаж по платформам">
+        </section>
+
+        <section class="table-wrap">
+            <table>
+                <thead><tr><th>#</th><th>Платформа</th><th>{{ metrics[metric] }}, млн</th></tr></thead>
+                <tbody>
+                {% for platform, value in table %}
+                    <tr><td>{{ loop.index }}</td><td>{{ platform }}</td><td>{{ value }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    {% endif %}
+</main>
+
+<footer>Разработка программных средств · ИДЗ-4</footer>
+</body>
+</html>

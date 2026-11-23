@@ -1,0 +1,6 @@
+flask>=3.0
+pandas>=2.0
+matplotlib>=3.8
+kagglehub>=0.3
+pytest>=8.0
+gunicorn>=22.0
