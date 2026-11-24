@@ -18,16 +18,33 @@
 | Выход | график (PNG, base64) + HTML-страница | `charts.py`, `templates/index.html` |
 
 ```
-vgsales_app/
-├── app.py            # Flask: маршрут "/", валидация параметров
-├── analysis.py       # функции анализа (pandas)
-├── charts.py         # построение графиков (matplotlib)
-├── data_loader.py    # загрузка CSV (локально или через kagglehub)
-├── templates/index.html
-├── static/style.css
-├── data/vgsales.csv  # появится после первого запуска
-├── tests/            # pytest
-└── requirements.txt
+vgsales-dashboard/
+│
+├── app.py                  # Основной модуль Flask
+├── analysis.py             # Анализ и обработка данных
+├── charts.py               # Построение графиков
+├── data_loader.py          # Загрузка датасета
+│
+├── templates/
+│   └── index.html           # HTML-интерфейс
+│
+├── static/
+│   └── style.css            # Стили интерфейса
+│
+├── data/
+│   └── vgsales.csv          # Исходный датасет
+│
+├── tests/
+│   ├── test_analysis.py     # Тесты аналитических функций
+│   └── test_app.py          # Тесты Flask-приложения
+│
+├── conftest.py              # Конфигурация pytest
+├── requirements.txt         # Зависимости Python
+├── Dockerfile               # Сборка Docker-образа
+├── docker-compose.yml       # Конфигурация Docker Compose
+├── .dockerignore            # Исключения Docker
+├── .gitignore               # Исключения Git
+└── README.md                # Документация проекта
 ```
 
 ## Запуск в PyCharm
@@ -60,5 +77,5 @@ Python, Flask, pandas, matplotlib, pytest, kagglehub. Формат данных:
 ```
 docker compose up --build
 ```
-Приложение будет доступно на http://localhost:5000. Остановить: `Ctrl+C`, затем `docker compose down`.
+Приложение будет доступно на http://localhost:8000. Остановить: `Ctrl+C`, затем `docker compose down`.
 Датасет хранится в папке `data/` (подключена как volume), поэтому повторно не скачивается.

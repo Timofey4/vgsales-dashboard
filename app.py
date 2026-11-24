@@ -1,4 +1,4 @@
-"""Flask-интерфейс для анализа продаж видеоигр по платформам."""
+"""WEB-интерфейс для анализа продаж видеоигр по платформам на базе фреймворка Flask."""
 from flask import Flask, render_template, request
 
 from analysis import (

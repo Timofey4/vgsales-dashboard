@@ -1,7 +1,5 @@
-"""Логика анализа продаж видеоигр (перенесена из Colab без изменений)."""
+"""Логика анализа продаж видеоигр"""
 import pandas as pd
-
-
 def load_and_clean(df: pd.DataFrame) -> pd.DataFrame:
     """Удаляет строки без года и приводит Year к int."""
     cleaned = df.dropna(subset=['Year']).copy()

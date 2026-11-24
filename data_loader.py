@@ -17,7 +17,7 @@ KAGGLE_DATASET = "kedokedokedo/vgsales"
 
 
 def _download_from_kaggle() -> None:
-    """Скачивает датасет с Kaggle и кладёт vgsales.csv в папку data/."""
+    """Скачиваем датасет с Kaggle и кладём vgsales.csv в папку data/."""
     import kagglehub  # импорт здесь, чтобы он нужен был только при первом запуске
 
     print("Локальный файл не найден, скачиваю датасет с Kaggle...")
@@ -27,7 +27,7 @@ def _download_from_kaggle() -> None:
 
 
 def get_dataframe() -> pd.DataFrame:
-    """Возвращает очищенный датафрейм с продажами."""
+    """Возвращаем очищенный датафрейм с продажами."""
     if not CSV_PATH.exists():
         try:
             _download_from_kaggle()
